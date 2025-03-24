@@ -178,6 +178,38 @@
             max-width: 700px;
             line-height: 1.5;
         }
+
+        a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        /* Pour les liens dans le footer spécifiquement */
+        #footer a {
+            text-decoration: none;
+        }
+        
+        #footer a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
+        
+        /* Pour le lien dans #minortext */
+        #minortext a {
+            color: var(--white);
+            font-weight: 500;
+        }
+        
+        #minortext a:hover {
+            text-decoration: underline;
+            opacity: 0.9;
+        }
         
         @media (max-width: 600px) {
             h1 {
