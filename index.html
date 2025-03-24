@@ -5,135 +5,237 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de Personnages Québécois</title>
     <style>
+        :root {
+            --primary: #0056b3;
+            --primary-light: #3a7fc5;
+            --secondary: #ffcc00;
+            --white: #ffffff;
+            --black: #222222;
+            --gray: #f5f5f5;
+        }
+        
         body {
-            background-color: #0056b3;
-            color: white;
-            font-family: 'Arial', sans-serif;
+            background-color: var(--primary);
+            color: var(--white);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             text-align: center;
-            margin-top: 30px;
+            margin: 0;
             padding: 20px;
-        }
-        #character-container {
-            display: inline-block;
-            border: 4px solid white;
-            padding: 20px;
-            margin-top: 20px;
-            min-width: 300px;
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 10px;
-        }
-        #character {
-            font-size: 32px;
-            font-weight: bold;
-            display: inline-block;
-            line-height: 1.3;
-        }
-        .container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        button {
-            font-size: 20px;
-            padding: 12px 24px;
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #character-container {
+            border: 3px solid var(--white);
+            padding: 30px 20px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 500px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        
+        #character-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        
+        #character {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .name-highlight {
+            color: var(--secondary);
+            font-weight: 700;
+            display: inline-block;
+            padding: 0 4px;
+        }
+        
+        .gender-selector {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .gender-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--white);
+            border-radius: 50px;
             cursor: pointer;
-            background-color: white;
-            color: #0056b3;
-            border: none;
-            font-weight: bold;
-            margin-top: 20px;
-            border-radius: 5px;
             transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+            min-width: 120px;
         }
-        button:hover {
-            background-color: #ddd;
-            transform: scale(1.05);
+        
+        .gender-btn:hover {
+            background-color: rgba(255,255,255,0.2);
         }
+        
+        .gender-btn.active {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        .generate-btn {
+            font-size: 1.1rem;
+            padding: 14px 32px;
+            cursor: pointer;
+            background-color: var(--white);
+            color: var(--primary);
+            border: none;
+            font-weight: 600;
+            margin: 20px 0;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .generate-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        
+        .generate-btn:active {
+            transform: translateY(0);
+        }
+        
         #footer {
-            font-size: 14px;
-            color: white;
-            opacity: 0.7;
+            font-size: 0.9rem;
+            color: var(--white);
+            opacity: 0.8;
             margin-top: 50px;
+            width: 100%;
         }
+        
         .fleur-de-lys {
             height: 20px;
             vertical-align: middle;
             margin: 0 5px;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
         }
-        .gender-selector {
-            margin: 20px 0;
+        
+        .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
+            margin-top: 15px;
         }
-        .gender-btn {
-            padding: 10px 20px;
-            border: 2px solid white;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
+        
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
         }
-        .gender-btn:hover {
-            background-color: rgba(255,255,255,0.2);
+        
+        .social-links a:hover {
+            opacity: 0.8;
         }
-        .gender-btn.active {
-            background-color: white;
-            color: #0056b3;
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
         }
-        .name-highlight {
-            color: #ffcc00;
-            font-weight: bold;
-        }
-        #minortext {
-            font-size: 14px;
-            color: white;
-            opacity: 0.7;
-            margin-top: 50px;
-        }
+        
         #disclaimer {
-            font-size: 12px;
-            color: white;
+            font-size: 0.8rem;
+            color: var(--white);
             opacity: 0.7;
             margin-top: 50px;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            #character {
+                font-size: 1.5rem;
+            }
+            
+            .gender-btn {
+                padding: 10px 20px;
+                min-width: 100px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Générateur de Personnages Québécois</h1>
-    <p>Votre campagne électorale va mal? Vous ne vous sentez pas assez proches de vos électeurs? <br />Trouvez votre propre Jean-Marie Tremblay, le soudeur de Saguenay! </p>
-    
-    <div class="gender-selector">
-        <div class="gender-btn active" onclick="setGender('m')">Masculin</div>
-        <div class="gender-btn" onclick="setGender('f')">Féminin</div>
-    </div>
-    
     <div class="container">
+        <h1>Générateur de Personnages Québécois</h1>
+        <p class="subtitle">Votre campagne électorale va mal? Vous ne vous sentez pas assez proches de vos électeurs? <br>Trouvez votre propre Jean-Marie Tremblay, le soudeur de Saguenay!</p>
+        
+        <div class="gender-selector">
+            <div class="gender-btn active" onclick="setGender('m')">Masculin</div>
+            <div class="gender-btn" onclick="setGender('f')">Féminin</div>
+        </div>
+        
         <div id="character-container">
             <div id="character">Cliquez sur le bouton pour générer!</div>
         </div>
-        <button onclick="generateCharacter()">Générer un Personnage</button>
-    </div>
-     <p id="disclaimer">Ce site web est destiné à des fins satiriques et de divertissement uniquement. Tout a été fait pour éviter la génération de personnages offensants.<br />
-        Ce site web n'est affilié à aucun parti politique ou candidat et ne doit pas être considéré comme un endossement.<br />
-        Si vous ne l'avez pas déjà fait, vous devriez vous inscrire pour voter.</p>
-    <div id="footer">
-        Fièrement québécois 
-        <svg class="fleur-de-lys" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.028,21.783c0.527-0.765,0.482-2.439-0.571-3.03c-0.806-0.393-1.715-0.239-2.14,0.099c-0.684,0.404-1.343,1.697-1.343,3.005l2.363-0.003v2.576l-4.904-0.003c0.064,1.325,0.804,2.387,2.181,2.978c-0.177,0.558-1.008,1.697-2.148,1.62c-0.225-1.204-0.439-1.88-1.465-2.974c-1.026,1.094-1.24,1.77-1.465,2.974c-1.141-0.077-1.971-1.216-2.148-1.62c1.377-0.591,2.117-1.653,2.181-2.978l-4.904,0.003v-2.576l2.362,0.003c0-1.309-0.658-2.601-1.343-3.005c-0.425-0.339-1.335-0.493-2.14-0.1c-1.054,0.591-1.099,2.266-0.572,3.03c-5.775-0.902-5.282-5.594-3.587-7.297c1.37-1.376,2.863-1.591,4.015-1.157c2.616,0.916,4.377,3.969,4.462,8.529h1.369c0-4.145-0.739-5.467-2.663-10.673c-0.969-2.461-0.386-5.503,1.346-8.304c0.621-1.004,1.396-1.91,2.287-2.881c0.89,0.971,1.666,1.877,2.287,2.881c1.732,2.801,2.315,5.843,1.346,8.304c-1.925,5.206-2.664,6.527-2.664,10.673h1.369c0.085-4.56,1.846-7.613,4.463-8.529c1.151-0.434,2.646-0.219,4.015,1.157c1.695,1.703,2.188,6.395-2.787,7.297z" fill="white"/>
-        </svg>
-      <p id="minortext">Codé par <a href="http://bsky.kayrozen.com/">@kayrozen.com</a> selon <a href="https://www.reddit.com/r/Quebec/comments/1jiq4iv/comment/mjh9ww0/">l'idée mentionnée ici</a> <br />
-      <a href="https://github.com/kayrozen/personna/"> 
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="24" viewBox="0 0 32 24">
-            <!-- GitHub logo -->
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" 
-                  transform="scale(0.8) translate(0, 3)" 
-                  fill="none" stroke="#fff" stroke-width="2"/>
-        </svg>
-      </a>
-      </p>
-    </div>
-    
+        
+        <button class="generate-btn" onclick="generateCharacter()">Générer un Personnage</button>
+        
+        <p id="disclaimer">Ce site web est destiné à des fins satiriques et de divertissement uniquement. Tout a été fait pour éviter la génération de personnages offensants.<br>
+            Ce site web n'est affilié à aucun parti politique ou candidat et ne doit pas être considéré comme un endossement.<br>
+            Si vous ne l'avez pas déjà fait, vous devriez vous inscrire pour voter.</p>
+        
+        <div id="footer">
+            Fièrement québécois 
+            <svg class="fleur-de-lys" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.028,21.783c0.527-0.765,0.482-2.439-0.571-3.03c-0.806-0.393-1.715-0.239-2.14,0.099c-0.684,0.404-1.343,1.697-1.343,3.005l2.363-0.003v2.576l-4.904-0.003c0.064,1.325,0.804,2.387,2.181,2.978c-0.177,0.558-1.008,1.697-2.148,1.62c-0.225-1.204-0.439-1.88-1.465-2.974c-1.026,1.094-1.24,1.77-1.465,2.974c-1.141-0.077-1.971-1.216-2.148-1.62c1.377-0.591,2.117-1.653,2.181-2.978l-4.904,0.003v-2.576l2.362,0.003c0-1.309-0.658-2.601-1.343-3.005c-0.425-0.339-1.335-0.493-2.14-0.1c-1.054,0.591-1.099,2.266-0.572,3.03c-5.775-0.902-5.282-5.594-3.587-7.297c1.37-1.376,2.863-1.591,4.015-1.157c2.616,0.916,4.377,3.969,4.462,8.529h1.369c0-4.145-0.739-5.467-2.663-10.673c-0.969-2.461-0.386-5.503,1.346-8.304c0.621-1.004,1.396-1.91,2.287-2.881c0.89,0.971,1.666,1.877,2.287,2.881c1.732,2.801,2.315,5.843,1.346,8.304c-1.925,5.206-2.664,6.527-2.664,10.673h1.369c0.085-4.56,1.846-7.613,4.463-8.529c1.151-0.434,2.646-0.219,4.015,1.157c1.695,1.703,2.188,6.395-2.787,7.297z" fill="white"/>
+            </svg>
+          <p id="minortext">Codé par <a href="http://bsky.kayrozen.com/">@kayrozen.com</a> selon <a href="https://www.reddit.com/r/Quebec/comments/1jiq4iv/comment/mjh9ww0/">l'idée mentionnée ici</a> <br />
+              <a href="https://github.com/kayrozen/personna/"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="24" viewBox="0 0 32 24">
+                    <!-- GitHub logo -->
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" 
+                          transform="scale(0.8) translate(0, 3)" 
+                          fill="none" stroke="#fff" stroke-width="2"/>
+                </svg>
+              </a>
+          </p>
+        </div>
+
     <script>
         let currentGender = 'm';
         
