@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Personnages Québécois</title>
+    <style>
+        body {
+            background-color: #0056b3;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        #character-container {
+            display: inline-block;
+            border: 4px solid white;
+            padding: 20px;
+            margin-top: 20px;
+            min-width: 300px;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        #character {
+            font-size: 32px;
+            font-weight: bold;
+            display: inline-block;
+            line-height: 1.3;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            font-size: 20px;
+            padding: 12px 24px;
+            cursor: pointer;
+            background-color: white;
+            color: #0056b3;
+            border: none;
+            font-weight: bold;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #ddd;
+            transform: scale(1.05);
+        }
+        #footer {
+            font-size: 14px;
+            color: white;
+            opacity: 0.7;
+            margin-top: 50px;
+        }
+        .fleur-de-lys {
+            height: 20px;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        .gender-selector {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .gender-btn {
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .gender-btn:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .gender-btn.active {
+            background-color: white;
+            color: #0056b3;
+        }
+        .name-highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        #minortext {
+            font-size: 14px;
+            color: white;
+            opacity: 0.7;
+            margin-top: 50px;
+        }
+        #disclaimer {
+            font-size: 12px;
+            color: white;
+            opacity: 0.7;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Générateur de Personnages Québécois</h1>
+    <p>Votre campagne électorale va mal? Vous ne vous sentez pas assez proches de vos électeurs? Trouvez votre propre Jean-Marie Tremplay, le soudeur de Saguenay! </p>
+    
+    <div class="gender-selector">
+        <div class="gender-btn active" onclick="setGender('m')">Masculin</div>
+        <div class="gender-btn" onclick="setGender('f')">Féminin</div>
+    </div>
+    
+    <div class="container">
+        <div id="character-container">
+            <div id="character">Cliquez sur le bouton pour générer!</div>
+        </div>
+        <button onclick="generateCharacter()">Générer un Personnage</button>
+    </div>
+     <p id="disclaimer">Ce site web est destiné à des fins satiriques et de divertissement uniquement. Tout a été fait pour éviter la génération de personnages offensants.<br />
+        Ce site web n'est affilié à aucun parti politique ou candidat et ne doit pas être considéré comme un endossement.<br />
+        Si vous ne l'avez pas déjà fait, vous devriez vous inscrire pour voter.</p>
+    <div id="footer">
+        Fièrement québécois 
+        <svg class="fleur-de-lys" viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.028,21.783c0.527-0.765,0.482-2.439-0.571-3.03c-0.806-0.393-1.715-0.239-2.14,0.099c-0.684,0.404-1.343,1.697-1.343,3.005l2.363-0.003v2.576l-4.904-0.003c0.064,1.325,0.804,2.387,2.181,2.978c-0.177,0.558-1.008,1.697-2.148,1.62c-0.225-1.204-0.439-1.88-1.465-2.974c-1.026,1.094-1.24,1.77-1.465,2.974c-1.141-0.077-1.971-1.216-2.148-1.62c1.377-0.591,2.117-1.653,2.181-2.978l-4.904,0.003v-2.576l2.362,0.003c0-1.309-0.658-2.601-1.343-3.005c-0.425-0.339-1.335-0.493-2.14-0.1c-1.054,0.591-1.099,2.266-0.572,3.03c-5.775-0.902-5.282-5.594-3.587-7.297c1.37-1.376,2.863-1.591,4.015-1.157c2.616,0.916,4.377,3.969,4.462,8.529h1.369c0-4.145-0.739-5.467-2.663-10.673c-0.969-2.461-0.386-5.503,1.346-8.304c0.621-1.004,1.396-1.91,2.287-2.881c0.89,0.971,1.666,1.877,2.287,2.881c1.732,2.801,2.315,5.843,1.346,8.304c-1.925,5.206-2.664,6.527-2.664,10.673h1.369c0.085-4.56,1.846-7.613,4.463-8.529c1.151-0.434,2.646-0.219,4.015,1.157c1.695,1.703,2.188,6.395-2.787,7.297z" fill="white"/>
+        </svg>
+      <p id="minortext">Codé par <a href="http://bsky.kayrozen.com/">@kayrozen.com</a> selon <a href="https://www.reddit.com/r/Quebec/comments/1jiq4iv/comment/mjh9ww0/">l'idée mentionnée ici</a></p>
+    </div>
+    
+    <script>
+        let currentGender = 'm';
+        
+        function setGender(gender) {
+            currentGender = gender;
+            document.querySelectorAll('.gender-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            generateCharacter();
+        }
+
+        function generateCharacter() {
+            const maleFirstNames = [
+                "Guy", "Jean", "Mario", "Pierre", "Claude", "Jacques", "André", "Michel", 
+                "François", "Louis", "Daniel", "Bernard", "Robert", "Richard", "Alain", 
+                "Denis", "Sylvain", "Marc", "Patrick", "Yves", "René", "Luc", "Serge", 
+                "Stéphane", "Martin", "Mathieu", "David", "Simon", "Éric", "Philippe", 
+                "Jean-Pierre", "Jean-François", "Jean-Guy", "Jean-Claude", "Jos", "Ti-Paul",
+                "Ti-Guy", "Ti-Louis", "Ti-Jean", "Ti-Michel", "Ti-Pierre", "Ti-Claude",
+                "Benoît", "Charles", "Christian", "Dominique", "Fernand", "Gaétan", "Gérard",
+                "Gilbert", "Hugues", "Jocelyn", "Laurent", "Léon", "Marcel", "Normand",
+                "Olivier", "Pascal", "Paul", "Réal", "Roger", "Roland", "Sébastien",
+                "Thierry", "Vincent", "Wilfrid", "Xavier", "Yvan", "Zacharie", "Adrien",
+                "Alexandre", "Antoine", "Baptiste", "Cédric", "Damien", "Edmond", "Fabien",
+                "Georges", "Henri", "Irénée", "Jules", "Kevin", "Léo", "Maxime", "Noël",
+                "Octave", "Quentin", "Réjean", "Samuel", "Thomas", "Ulysse", "Victor",
+                "William", "Yannick", "Zéphirin", "Armand", "Basile", "Cyril", "Didier",
+                "Édouard", "Frédéric", "Gaston", "Hubert", "Isidore", "Jérôme"
+            ];
+
+            const femaleFirstNames = [
+                "Marie", "Louise", "Jeanne", "Françoise", "Monique", "Suzanne", "Nicole",
+                "Hélène", "Anne", "Claire", "Lucie", "Julie", "Martine", "Chantal", "Carole",
+                "Sylvie", "Danielle", "Christine", "Nathalie", "Isabelle", "Sophie", "Valérie",
+                "Josée", "Lise", "Denise", "Jocelyne", "Micheline", "Ginette", "Thérèse",
+                "Céline", "Manon", "Annie", "Élise", "Gabrielle", "Johanne", "Karine",
+                "Linda", "Mélanie", "Paule", "Rachel", "Stéphanie", "Véronique", "Yvette",
+                "Zoé", "Agathe", "Brigitte", "Claudia", "Diane", "Éliane", "Florence",
+                "Geneviève", "Irène", "Jacqueline", "Katherine", "Laurence", "Marguerite",
+                "Noémie", "Odette", "Patricia", "Rose", "Simone", "Tania", "Ursule",
+                "Viviane", "Wendy", "Xavier", "Yolande", "Amélie", "Béatrice",
+                "Charlotte", "Dominique", "Émilie", "Fabienne", "Guylaine", "Héloïse",
+                "Ingrid", "Justine", "Kathy", "Léa", "Mireille", "Nadia", "Olivia",
+                "Pascale", "Roxanne", "Sabrina", "Tina", "Vanessa", "Wanda", "Alexandra",
+                "Bérénice", "Camille", "Danièle", "Édith", "Fanny", "Géraldine", "Hortense",
+                "Jessica", "Kim", "Laurie", "Marianne", "Nathacha", "Ophélie", "Pénélope",
+                "Rita", "Sarah", "Tatiana", "Virginie", "Ariane", "Brigitte", "Clémence",
+                "Dolorès", "Éléonore", "Frédérique", "Gisèle", "Iris", "Janique", "Rose"
+            ];
+
+            const lastNames = [
+                "Tremblay", "Gagnon", "Roy", "Côté", "Bouchard", "Gauthier", "Morin",
+                "Lavoie", "Fortin", "Gagné", "Ouellet", "Pelletier", "Bélanger", "Lévesque",
+                "Bergeron", "Leblanc", "Paquette", "Girard", "Simard", "Caron", "Beaulieu",
+                "Cloutier", "Dubé", "Poirier", "Fournier", "Lapointe", "Leclerc", "Lefebvre",
+                "Poulin", "Thibault", "St-Pierre", "Martel", "Guay", "Lessard", "Savard",
+                "Boucher", "Dion", "Dupuis", "Larouche", "Gosselin", "Parent", "Blais",
+                "Lacroix", "Lemieux", "Michaud", "Demers", "Arsenault", "Rousseau", "Vachon",
+                "Boivin", "Gravel", "Beaudoin", "Boisvert", "Hamel", "Grenier", "Leduc",
+                "Duchesne", "Lapierre", "Marois", "Mercier", "Desjardins", "Deschênes",
+                "Bernier", "Turcotte", "Massé", "Plante", "Rivard", "Goulet", "Lambert",
+                "Godin", "Paradis", "Lamarche", "Pineault", "Langlois", "Bédard", "Léger",
+                "Picard", "Allard", "Lussier", "Sauvé", "Dufour", "Lachance", "Benoît",
+                "Bilodeau", "Charbonneau", "Drolet", "Fillion", "Gendron", "Houde", "Jacob",
+                "Labrecque", "Ménard", "Noël", "Quintal", "Raymond", "Tessier", "Vézina",
+                "Audet", "Bérubé", "Chabot", "Dagenais", "Ferland", "Giroux", "Hébert",
+                "Jolicoeur", "Larochelle", "Monette", "Nadeau", "Perron", "Racine", "Tardif",
+                "Vaillancourt", "Aubin", "Bissonnette", "Cyr", "Dallaire", "Fafard", "Gougeon",
+                "Huard", "Jetté", "Lacharité", "Mainville", "Nolin", "Ouellette", "Proulx",
+                "Rancourt", "Thériault", "Villeneuve", "Asselin", "Boulanger", "Champagne",
+                "Dionne", "Fecteau", "Gougeon", "Houle", "Joly", "Lafrance", "Mailloux",
+                "Nantel", "O'Brien", "Pépin", "Rouleau", "Therrien", "Vinet", "Ayotte",
+                "Bourque", "Cliche", "Dostie", "Frigon", "Grenon", "Husson", "Jobin",
+                "Lafrenière", "Marcotte", "Nepton", "Ouellet", "Phaneuf", "Royer", "Trottier",
+                "Vachon", "Barbeau", "Bussière", "Corriveau", "Doyon", "Fontaine", "Groleau",
+                "Imbeault", "Juneau", "Lafond", "Marquis", "Nault", "Paquet", "Richer",
+                "Sirois", "Trempe", "Vallée", "Archambault", "Boutin", "Cournoyer", "Drouin",
+                "Forget", "Guérin", "Isabelle", "Jutras", "Lagacé", "Martineau", "Néron",
+                "Piché", "Rioux", "St-Amand", "Trudel", "Veilleux"
+            ];
+
+            const maleJobs = [
+                "bûcheron", "trappeur", "pêcheur", "chasseur", "fermier", "fromager", 
+                "siropier", "mineur", "débosseleur", "scieur", "charpentier", "menuisier",
+                "ferblantier", "plombier", "mécanicien", "garagiste", 
+                "camionneur", "bottier", "tanneur", "forgeron", "charron", "tonnelier",
+                "cordonnier", "tisserand", "potier", "verrier", "maçon", "couvreur",
+                "tuyauteur", "soudeur", "zingueur", "sculpteur", "tourneur",
+                "rempailleur", "cloutier", "chaudronnier", "fondeur",
+                "mouleur", "graveur", "horloger", "maréchal-ferrant", "sellier",
+                "carrossier", "charretier", "meunier", "boulanger", "boucher",
+                "charcutier", "poissonnier", "fromager", "vigneron", "brasseur",
+                "distillateur", "tanneur", "teinturier", "perruquier", "barbier",
+                "sabotier", "luthier", "facteur d'orgues", "peaussier", "fourreur",
+                "marchand de fourrures", "cannoteur", "draveur", "flotteur",
+                "guide de chasse", "joualier", "lanternier", "navigateur", "piégeur",
+                "quincaillier", "rémouleur", "sablier", "télégraphiste", "vaurien",
+                "wagonnier", "ébrancheur", "faneur", "faucheur", "fendeur", "filiériste",
+                "flotteur", "fondeur", "forestier", "fossoyeur", "fouilleur",
+                "fournier", "fumiste", "gabareur", "galochier", "gantier"
+            ];
+
+            const femaleJobs = [
+                "couturière", "tricoteuse", "boulangère", "fromagère", "fermière",
+                "herboriste", "savonnière", "chandelière", "dentellière", "fileuse",
+                "tisserande", "teinturière", "brodeuse", "potière", "verrière",
+                "vannière", "rempailleuse", "perruquière", "modiste", "lingère",
+                "lavandière", "repasseuse", "blanchisseuse", "confiturière", "pâtissière",
+                "charcutière", "poissonnière", "crèmière", "bouchère", "marchande",
+                "herboriste", "sage-femme", "guérisseuse",
+               "parfumeuse",  "cirère", "bouquetière",
+                "fleuriste", "chapelière", "gantière", "corsetière", "modiste",
+                "marchande à la toilette", "coiffeuse",  "parfumeuse",
+                "bijoutière", "horlogère", "graveuse",  "relieuse",
+                "papetière", "peintresse", "sculptrice", "céramiste", 
+                "mosaïste", "vitrailliste", "tapissière", "passementière", "rubanière",
+                "galonnière", "frangeuse", "dentellière", "fileuse", 
+                "trameuse", "canetière", "navetière", "linière", "chanvrière",
+                "soyeuse", "lainière", "cotonnière", "drapière", "toilière",
+                "sergère", "flanellière", "molletière", "bonnetière", "basquière",
+                "mitonnière", "gantière", "chaussonnière", "pantouflière", "savetière",
+                "cordière", "vannière", "sparterie", "rotinière", "paillassière",
+                "cloutière", "bobinière"
+            ];
+
+            const regions = [
+                "Abitibi", "Bas-Saint-Laurent", "Capitale-Nationale", "Centre-du-Québec",
+                "Chaudière-Appalaches", "Côte-Nord", "Estrie", "Gaspésie", 
+                "Îles-de-la-Madeleine", "Lanaudière", "Laurentides", "Laval",
+                "Mauricie", "Montérégie", "Montréal", "Nord-du-Québec",
+                "Outaouais", "Saguenay-Lac-Saint-Jean", "Témiscamingue",
+                "Beauce", "Charlevoix", "Lotbinière", "Maskinongé", "Mégantic",
+                "Papineau", "Portneuf", "Rimouski", "Rivière-du-Loup", "Rouyn-Noranda",
+                "Sept-Îles", "Sherbrooke", "Trois-Rivières", "Val-d'Or", "Vaudreuil-Soulanges",
+                "Ville-Marie", "Hochelaga", "Rosemont", "Villeray", "Ahuntsic",
+                "Pointe-aux-Trembles", "Rivière-des-Prairies", "Saint-Henri",
+                "Saint-Michel", "Verdun", "LaSalle", "Lachine", "Pierrefonds",
+                "Sainte-Thérèse", "Saint-Jérôme", "Saint-Hyacinthe", "Drummondville",
+                "Victoriaville", "Shawinigan", "Alma", "Dolbeau", "La Tuque",
+                "Saint-Georges", "Thetford Mines", "Asbestos", "Saint-Raymond",
+                "Baie-Comeau", "Forestville", "Havre-Saint-Pierre", "Matane",
+                "Sainte-Anne-des-Monts", "Carleton", "Percé", "Gaspé", "New Richmond",
+                "Bonaventure", "Amqui", "Causapscal", "Saint-Alexis-des-Monts",
+                "Saint-Paulin", "Saint-Élie-de-Caxton", "Saint-Tite", "Sainte-Anne-de-la-Pérade",
+                "Batiscan", "Champlain", "Saint-Prosper", "Saint-Narcisse",
+                "Sainte-Marie", "Saint-Joseph-de-Beauce", "Saint-Georges-de-Beauce",
+                "Sainte-Claire", "Saint-Henri", "Saint-Charles", "Saint-Lambert",
+                "Lévis", "Saint-Romuald", "Saint-Rédempteur", "Saint-Étienne",
+                "Saint-Nicolas", "Sainte-Foy", "Sillery", "Cap-Rouge", "L'Ancienne-Lorette",
+                "Charlesbourg", "Beauport", "Montmorency", "Sainte-Anne-de-Beaupré",
+                "Château-Richer", "L'Islet", "Saint-Jean-Port-Joli", "Saint-Pacôme",
+                "La Pocatière", "Rivière-Ouelle", "Saint-Denis", "Saint-Germain",
+                "Kamouraska", "Saint-Pascal", "Saint-André", "Saint-Alexandre",
+                "Saint-Basile", "Saint-Georges", "Saint-Jacques", "Saint-Luc",
+                "Saint-Marc", "Saint-Philippe", "Saint-Robert", "Saint-Simon",
+                "Saint-Valérien", "Saint-Zotique", "Sainte-Béatrix", "Sainte-Émélie",
+                "Sainte-Julienne", "Sainte-Marcelline", "Sainte-Mélanie", "Sainte-Sophie",
+                "Saint-Calixte", "Saint-Esprit", "Saint-Liguori", "Saint-Roch",
+                "Sainte-Anne-des-Plaines", "Sainte-Thérèse", "Boisbriand",
+                "Blainville", "Sainte-Marthe", "Saint-Eustache", "Deux-Montagnes",
+                "Saint-Joseph", "Saint-Placide", "Oka", "Saint-André", "Saint-Benoît",
+                "Saint-Hermas", "Saint-Janvier", "Saint-Jérôme", "Saint-Sauveur",
+                "Sainte-Adèle", "Sainte-Agathe", "Sainte-Anne", "Sainte-Lucie",
+                "Sainte-Marguerite", "Val-David", "Val-Morin", "Mont-Tremblant",
+                "Labelle", "Notre-Dame", "Saint-Faustin", "Saint-Jovite", "Ayer's Cliff",
+                "Coaticook", "Compton", "Cookshire", "Danville", "East Angus",
+                "Lac-Mégantic", "Lennoxville", "North Hatley", "Sherbrooke", "Stanstead",
+                "Waterville", "Windsor", "Asbestos", "Bromptonville", "Capelton",
+                "Fleurimont", "Rock Forest", "Saint-Élie", "Saint-François", "Saint-Georges",
+                "Ascot", "Brompton", "Dudswell", "Eastman", "Hatley", "Kingsbury",
+                "Magog", "Maricourt", "Melbourne", "Orford", "Racine", "Saint-Camille",
+                "Saint-Claude", "Saint-Denis", "Saint-Étienne", "Saint-Ferdinand",
+                "Saint-Gérard", "Saint-Joseph", "Saint-Malo", "Saint-Norbert",
+                "Saint-Patrice", "Saint-Robert", "Saint-Romain", "Saint-Sébastien",
+                "Saint-Venant", "Saint-Victor", "Sainte-Anne", "Sainte-Catherine",
+                "Sainte-Cécile", "Sainte-Christine", "Sainte-Edwidge", "Sainte-Hélène",
+                "Sainte-Marie", "Sainte-Praxède", "Sainte-Sabine", "Sainte-Sophie",
+                "Shefford", "Stoke", "Stratford", "Ulverton", "Valcourt", "Warden",
+                "Waterloo", "Westbury", "Wotton", "Acton Vale", "Bécancour", "Daveluyville",
+                "Drummondville", "Durham-Sud", "L'Avenir", "Lefebvre", "Lemieux",
+                "Nicole", "Notre-Dame", "Notre-Dame-de-Lourdes", "Notre-Dame-du-Bon-Conseil",
+                "Parisville", "Pierreville", "Saint-Bonaventure", "Saint-Célestin",
+                "Saint-Cyrille", "Saint-Edmond", "Saint-Elphège", "Saint-Eugène",
+                "Saint-Félix", "Saint-François", "Saint-Germain", "Saint-Guillaume",
+                "Saint-Lucien", "Saint-Majorique", "Saint-Norbert", "Saint-Pie",
+                "Saint-Pie-de-Guire", "Saint-Samuel", "Saint-Sylvère", "Saint-Wenceslas",
+                "Sainte-Anne", "Sainte-Brigitte", "Sainte-Clotilde", "Sainte-Eulalie",
+                "Sainte-Françoise", "Sainte-Hélène", "Sainte-Marie", "Sainte-Monique",
+                "Sainte-Perpétue", "Sainte-Séraphine", "Saints-Martyrs", "Upton",
+                "Victoriaville", "Warwick", "Wickham", "Baie-Saint-Paul", "Beaupré",
+                "Boischatel", "Cap-Santé", "Château-Richer", "Clermont", "Deschambault",
+                "Donnacona", "Fossambault", "Lac-Beauport", "Lac-Saint-Charles",
+                "Lac-Saint-Joseph", "L'Ange-Gardien", "L'Islet", "Neuville",
+                "Notre-Dame-des-Anges", "Petite-Rivière-Saint-François", "Pont-Rouge",
+                "Portneuf", "Rivière-à-Pierre", "Saint-Alban", "Saint-Augustin",
+                "Saint-Basile", "Saint-Casimir", "Saint-Ferréol", "Saint-François",
+                "Saint-Gabriel", "Saint-Gilbert", "Saint-Joachim", "Saint-Léonard",
+                "Saint-Marc", "Saint-Raymond", "Saint-Thuribe", "Sainte-Anne",
+                "Sainte-Brigitte", "Sainte-Catherine", "Sainte-Christine",
+                "Sainte-Famille", "Sainte-Pétronille", "Saint-Raymond", "Saint-Ubalde",
+                "Sault-au-Cochon", "Stoneham", "Tewkesbury", "Armagh", "Berthier",
+                "Cap-Saint-Ignace", "La Durantaye", "L'Isle-aux-Grues", "Montmagny",
+                "Notre-Dame-du-Rosaire", "Saint-Antoine", "Saint-Charles", "Saint-Cyrille",
+                "Saint-Damien", "Saint-François", "Saint-Jean-Port-Joli", "Saint-Just",
+                "Saint-Lazare", "Saint-Michel", "Saint-Pacôme", "Saint-Pamphile",
+                "Saint-Paul", "Saint-Philémon", "Saint-Pierre", "Saint-Roch",
+                "Sainte-Apolline", "Sainte-Euphémie", "Sainte-Félicité", "Sainte-Françoise",
+                "Sainte-Luce", "Sainte-Perpétue", "Sainte-Rose", "Saint-Vallier",
+                "Buckingham", "Cantley", "Chelsea", "Denholm", "Gatineau", "Hull",
+                "L'Ange-Gardien", "La Pêche", "Lac-des-Loups", "Lac-Sainte-Marie",
+                "Maniwaki", "Masham", "Masson", "Montcerf", "Notre-Dame-de-la-Salette",
+                "Papineauville", "Plaisance", "Pontiac", "Ripon", "Saint-André",
+                "Saint-Sixte", "Sainte-Cécile", "Thurso", "Val-des-Bois", "Wakefield"
+            ];
+
+            const firstName = currentGender === 'm' ? randomWord(maleFirstNames) : randomWord(femaleFirstNames);
+            const lastName = randomWord(lastNames);
+            const job = currentGender === 'm' ? randomWord(maleJobs) : randomWord(femaleJobs);
+            const region = randomWord(regions);
+            const article = currentGender === 'm' ? 'le' : 'la';
+
+            document.getElementById("character").innerHTML = `
+                <span class="name-highlight">${firstName} ${lastName}</span><br>
+                ${article} ${job} de ${region}
+            `;
+        }
+
+        function randomWord(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        // Generate first character on load
+        window.onload = generateCharacter;
+    </script>
+</body>
+</html>
